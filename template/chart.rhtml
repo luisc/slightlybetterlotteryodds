@@ -1,0 +1,192 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Slightly Better Lottery Odds</title>
+  <meta name="description" content="Slightly Better Lottery Odds">
+  <meta name="author" content="luisc">
+
+  <meta property="og:title" content="Slightly Better Lottery Odds">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.what.com/">
+  <meta property="og:description" content="Slightly Better Lottery Odds">
+  <meta property="og:image" content="image.png">
+
+  <link rel="icon" href="/favicon.ico">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <!-- <link rel="stylesheet" href="css/styles.css?v=1.0"> -->
+</head>
+
+<body>
+
+  <div>
+    <canvas id="chart_whiteballs"></canvas>
+  </div>
+
+  <hr>
+
+  <div>
+    <canvas id="chart_megaballs"></canvas>
+  </div>
+
+  <hr>
+
+  <div>
+    <canvas id="chart_multipliers"></canvas>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <script>
+    const chartColors = {
+      color1: 'rgba(18, 78, 120, 0.5)',
+      color2: 'rgba(240, 240, 201, 0.5)',
+      color3: 'rgba(242, 187, 5, 0.5)',
+      color4: 'rgba(215, 78, 9, 0.5)',
+      color5: 'rgba(18, 78, 120, 0.5)'
+    };
+
+    const labels_whiteballs = %{labels_whiteballs};
+    const data_whiteballs = %{data_whiteballs};
+
+    const labels_megaballs = %{labels_megaballs};
+    const data_megaballs = %{data_megaballs};
+
+    const labels_multipliers = %{labels_multipliers};
+    const data_multipliers = %{data_multipliers};
+
+    const whiteballs_data = {
+      labels: labels_whiteballs,
+      datasets: [{
+        label: 'White Balls from 10/31/2017',
+        data: data_whiteballs,
+        backgroundColor: [chartColors.color1],
+        borderWidth: 1
+      }]
+    };
+
+    const config_whiteballs = {
+      type: 'bar',
+      data: whiteballs_data,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      },
+    };
+
+    const chart_whiteballs = new Chart(
+      document.getElementById('chart_whiteballs'),
+      config_whiteballs
+    );
+
+    var dataset = chart_whiteballs.data.datasets[0];
+    for (var i = 0; i < dataset.data.length; i++) {
+      if (dataset.data[i] >= 25 && dataset.data[i] < 30) {
+        dataset.backgroundColor[i] = chartColors.color2;
+      } else if (dataset.data[i] >= 30 && dataset.data[i] < 35) {
+        dataset.backgroundColor[i] = chartColors.color3;
+      } else if (dataset.data[i] >= 35 && dataset.data[i] < 40) {
+        dataset.backgroundColor[i] = chartColors.color4;
+      } else if (dataset.data[i] >= 45 && dataset.data[i] < 50) {
+        dataset.backgroundColor[i] = chartColors.color5;
+      }
+    }
+    chart_whiteballs.update();
+
+
+    const megaballs_data = {
+      labels: labels_megaballs,
+      datasets: [{
+        label: 'Mega Balls from 10/31/2017',
+        data: data_megaballs,
+        backgroundColor: [chartColors.color1],
+        borderWidth: 1
+      }]
+    };
+
+    const config_megaballs = {
+      type: 'bar',
+      data: megaballs_data,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      },
+    };
+
+    const chart_megaballs = new Chart(
+      document.getElementById('chart_megaballs'),
+      config_megaballs
+    );
+
+    dataset = chart_megaballs.data.datasets[0];
+    for (var i = 0; i < dataset.data.length; i++) {
+      if (dataset.data[i] >= 10 && dataset.data[i] < 15) {
+        dataset.backgroundColor[i] = chartColors.color2;
+      } else if (dataset.data[i] >= 15 && dataset.data[i] < 20) {
+        dataset.backgroundColor[i] = chartColors.color3;
+      } else if (dataset.data[i] >= 20 && dataset.data[i] < 25) {
+        dataset.backgroundColor[i] = chartColors.color4;
+      } else if (dataset.data[i] >= 25 && dataset.data[i] < 30) {
+        dataset.backgroundColor[i] = chartColors.color5;
+      }
+    }
+    chart_megaballs.update();
+
+
+    const multipliers_data = {
+      labels: labels_multipliers,
+      datasets: [{
+        label: 'Multipliers from 10/31/2017',
+        data: data_multipliers,
+        backgroundColor: [chartColors.color1],
+        borderWidth: 1
+      }]
+    };
+
+    const config_multipliers = {
+      type: 'bar',
+      data: multipliers_data,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      },
+    };
+
+    const chart_multipliers = new Chart(
+      document.getElementById('chart_multipliers'),
+      config_multipliers
+    );
+
+    dataset = chart_multipliers.data.datasets[0];
+    for (var i = 0; i < dataset.data.length; i++) {
+      if (dataset.data[i] >= 0 && dataset.data[i] < 50) {
+        dataset.backgroundColor[i] = chartColors.color2;
+      } else if (dataset.data[i] >= 50 && dataset.data[i] < 150) {
+        dataset.backgroundColor[i] = chartColors.color3;
+      } else if (dataset.data[i] >= 150 && dataset.data[i] < 250) {
+        dataset.backgroundColor[i] = chartColors.color4;
+      } else if (dataset.data[i] >= 250 && dataset.data[i] < 350) {
+        dataset.backgroundColor[i] = chartColors.color5;
+      }
+    }
+    chart_multipliers.update();
+  </script>
+
+</body>
+</html>
+
+

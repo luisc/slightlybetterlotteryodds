@@ -11,6 +11,7 @@
 # megaball number was threshold of > 15
 # multiplier number was for greater than 100
 
+require 'json'
 require 'csv'
 require 'date'
 
@@ -54,7 +55,7 @@ end
 # grab data only from then
 # https://en.wikipedia.org/wiki/Mega_Millions#October_2017_format/price_point_change
 start_date = Date.parse('2017-10-31')
-whiteball_counter = generate_hash_counter(1..80)
+whiteball_counter = generate_hash_counter(1..70)
 megaball_counter = generate_hash_counter(1..25)
 multiplier_counter = generate_hash_counter(2..5)
 
@@ -73,17 +74,36 @@ CSV.foreach('data/mega-millions.csv', headers: true) do |row|
 
 end
 
-whiteball_candidates = find_candidates(whiteball_counter, 30)
-megaball_candidates = find_candidates(megaball_counter, 16)
-multiplier_candidates = find_candidates(multiplier_counter, 100)
+counters = {
+  labels_whiteballs: whiteball_counter.keys,
+  data_whiteballs: whiteball_counter.values,
 
-selected_whiteballs = []
+  labels_megaballs: megaball_counter.keys,
+  data_megaballs: megaball_counter.values,
 
-5.times do
-  selected_whiteballs << select_ball(whiteball_candidates)
-  whiteball_candidates -= [selected_whiteballs.last]
-end
+  labels_multipliers: multiplier_counter.keys,
+  data_multipliers: multiplier_counter.values
+}
 
-p "balls:    #{selected_whiteballs.sort}"
-p "megaball: [#{select_ball(megaball_candidates)}]"
-p "multiplier: [#{select_ball(multiplier_candidates)}]"
+puts "Opening up template"
+file = File.open("template/chart.rhtml")
+file_data = file.read
+file.close
+
+puts "Writing data"
+File.write("output/index.html", file_data % counters)
+
+# whiteball_candidates = find_candidates(whiteball_counter, 30)
+# megaball_candidates = find_candidates(megaball_counter, 16)
+# multiplier_candidates = find_candidates(multiplier_counter, 100)
+
+# selected_whiteballs = []
+
+# 5.times do
+#   selected_whiteballs << select_ball(whiteball_candidates)
+#   whiteball_candidates -= [selected_whiteballs.last]
+# end
+
+# p "balls:    #{selected_whiteballs.sort}"
+# p "megaball: [#{select_ball(megaball_candidates)}]"
+# p "multiplier: [#{select_ball(multiplier_candidates)}]"
