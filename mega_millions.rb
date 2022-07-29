@@ -107,6 +107,8 @@ puts "Writing data"
 File.write("output/index.html", file_data % counters)
 
 # currently within 1 std deviation (lower bound only)
+# TODO calculate mean, and 1 standard deviation
+# use that as a breakpoint
 whiteball_candidates = find_candidates(whiteball_counter, 29)
 megaball_candidates = find_candidates(megaball_counter, 16)
 multiplier_candidates = find_candidates(multiplier_counter, 100)
