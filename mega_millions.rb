@@ -50,6 +50,21 @@ def find_candidates(h, threshold)
   candidates
 end
 
+def generate_combination(whiteball_candidates, megaball_candidates, multiplier_candidates)
+  selected_whiteballs = []
+
+  5.times do
+    selected_whiteballs << select_ball(whiteball_candidates)
+    whiteball_candidates -= [selected_whiteballs.last]
+  end
+
+  {
+    selected_whiteballs: selected_whiteballs.sort,
+    selected_megaballs: select_ball(megaball_candidates),
+    selected_multiplier: select_ball(multiplier_candidates)
+  }
+end
+
 # on 10/31/2017 the format changed to
 # 5 balls 1-70, 1 ball 1-25
 # grab data only from then
@@ -67,11 +82,9 @@ CSV.foreach('data/mega-millions.csv', headers: true) do |row|
     parse_winning_numbers( row['Winning Numbers'] ).each do |winning_number|
       whiteball_counter[winning_number.to_i] += 1
     end
-    
     megaball_counter[ row['Mega Ball'].to_i ] += 1
-    multiplier_counter[ row['Multiplier'].to_i ] += 1
+    multiplier_counter[ row['Multiplier'].to_i ] += 1 if row['Multiplier']
   end
-
 end
 
 counters = {
@@ -93,17 +106,27 @@ file.close
 puts "Writing data"
 File.write("output/index.html", file_data % counters)
 
-# whiteball_candidates = find_candidates(whiteball_counter, 30)
-# megaball_candidates = find_candidates(megaball_counter, 16)
-# multiplier_candidates = find_candidates(multiplier_counter, 100)
+# currently within 1 std deviation (lower bound only)
+whiteball_candidates = find_candidates(whiteball_counter, 29)
+megaball_candidates = find_candidates(megaball_counter, 16)
+multiplier_candidates = find_candidates(multiplier_counter, 100)
 
-# selected_whiteballs = []
+puts "How many numbers to generate?"
+quantity = gets.chomp.to_i
 
-# 5.times do
-#   selected_whiteballs << select_ball(whiteball_candidates)
-#   whiteball_candidates -= [selected_whiteballs.last]
-# end
+quantity.times do |index|
+  combination = generate_combination(whiteball_candidates, megaball_candidates, multiplier_candidates)
 
-# p "balls:    #{selected_whiteballs.sort}"
-# p "megaball: [#{select_ball(megaball_candidates)}]"
-# p "multiplier: [#{select_ball(multiplier_candidates)}]"
+  puts "-" * 12
+  puts "Combination: #{index + 1}"
+  p "whiteballs: #{combination[:selected_whiteballs]}"
+  p "megaball: [#{combination[:selected_megaballs]}]"
+  p "multiplier: [#{combination[:selected_multiplier]}]"
+
+  # whiteball_candidates -= combination[:selected_whiteballs]
+  # megaball_candidates -= [combination[:selected_megaballs]]
+end
+
+puts "-" * 12
+
+
