@@ -2,11 +2,19 @@
 
 require 'date'
 
-today = Date.today.to_s
-output = "data/mega-millions.csv"
-src = "https://data.ny.gov/api/views/5xaw-6ayf/rows.csv?accessType=DOWNLOAD"
+def write_lottery_file(src, output)
+  # if you don't have curl, I dunno!
+  puts "grabbing file...\n#{src}"
+  `curl -o #{output} #{src}`
+  puts "wrote: #{output}"
+end
 
-# if you don't have curl, I dunno!
-puts "grabbing file..."
-`curl -o #{output} #{src}`
-puts "got it!"
+write_lottery_file(
+  "https://data.ny.gov/api/views/5xaw-6ayf/rows.csv?accessType=DOWNLOAD",
+  "data/mega-millions.csv"
+)
+
+write_lottery_file(
+  "https://data.ny.gov/api/views/dhwa-m6y4/rows.csv?accessType=DOWNLOAD&sorting=true",
+  "data/powerball-ny.csv"
+)
