@@ -5,8 +5,10 @@ Your odds are basically impossible at winning Mega Millions but this might *slig
 
 https://www.statisticshowto.com/odds-of-winning-the-lottery/
 
-get_data.rb grabs the most recent Mega Millions Lottery Data in CSV format
+The scripts here will pick random numbers from the most frequently occurring balls for Mega Millions and Powerball. This maybe changes your chances of winning from _less likely_ than getting hit by an asteroid to _maybe_ about as likely as getting hit by an asteroid (or not).
 
-mega_millions.rb parses that data and sums up the occurrences of each ball.
+* get_data.rb grabs the most recent lottery data in CSV format: Powerball and Megaball
+* mega_millions.rb parses that data and sums up the occurrences of each ball (being deprecated as I write this)
+* app.rb (in progress) will load up data, analyze it and generate combinations by excluding data outside of X standard deviations (lower bound only)
 
-Pick random numbers from the most frequently occurring balls. This maybe changes your chances of less likely of getting hit and killed by a meteorite to about as likely to getting hit by an asteroid (or not).
+
