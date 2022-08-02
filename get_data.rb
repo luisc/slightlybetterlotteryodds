@@ -2,6 +2,8 @@
 
 require 'date'
 
+data_path = "data"
+
 def write_lottery_file(src, output)
   # if you don't have curl, I dunno!
   puts "grabbing file...\n#{src}"
@@ -11,10 +13,10 @@ end
 
 write_lottery_file(
   "https://data.ny.gov/api/views/5xaw-6ayf/rows.csv?accessType=DOWNLOAD",
-  "data/mega-millions.csv"
+  "#{data_path}/mega-millions.csv"
 )
 
 write_lottery_file(
   "https://data.ny.gov/api/views/dhwa-m6y4/rows.csv?accessType=DOWNLOAD&sorting=true",
-  "data/powerball-ny.csv"
+  "#{data_path}/powerball-ny.csv"
 )
