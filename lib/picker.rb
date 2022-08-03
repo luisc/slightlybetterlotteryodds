@@ -10,11 +10,12 @@ class Picker
 
   def pick
     combination = []
-    tmp_range = range.to_a
-
+    tmp_candidates = self.candidates.to_a
+    
     quantity.times do
-      combination << tmp_range[picked = Random.rand(tmp_range.size)]
-      tmp_range.delete(picked)
+      picked = Random.rand(tmp_candidates.size)
+      combination << tmp_candidates[picked]
+      tmp_candidates.delete(picked)
     end
 
     combination
