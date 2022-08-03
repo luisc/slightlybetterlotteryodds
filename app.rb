@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
-require_relative 'lib/picker'
+require_relative 'lib/lottery'
+require_relative 'lib/ball'
 
 mega_millions = Lottery.new(
   title: "Mega Millions",
@@ -11,7 +12,7 @@ mega_millions = Lottery.new(
 )
 
 powerball = Lottery.new(
-  title: "Mega Millions",
+  title: "Powerball",
   white_ball: Ball.new(range: 1..69, quantity: 5),
   yellow_ball: Ball.new(range: 1..26),
   data_file: "data/powerball.csv",
@@ -20,12 +21,18 @@ powerball = Lottery.new(
 
 puts "How many combinations for Powerball would you like?"
 quantity = gets.chomp.to_i
+
+puts "Powerball"
 quantity.times do
   powerball.generate_combination
+  puts powerball.selections_to_s
 end
 
 puts "How many combinations for Mega Millions would you like?"
 quantity = gets.chomp.to_i
+
+puts "Mega Millions"
 quantity.times do
   mega_millions.generate_combination
+  puts mega_millions.selections_to_s
 end
