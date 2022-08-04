@@ -20,19 +20,17 @@ class Lottery
   attr_accessor :white_ball_selections
   attr_accessor :yellow_ball_selections
 
-  def initialize(options)
+  def initialize(options = {})
     self.title = options[:title]
 
     self.white_ball = options[:white_ball]
     self.yellow_ball = options[:yellow_ball]
 
     self.data_file = options[:data_file]
-    self.start_date = Date.parse(options[:start_date])
+    self.start_date = Date.parse(options[:start_date]) if options[:start_date]
 
-    self.white_ball_counter = generate_hash_counter(self.white_ball.range)
-    self.yellow_ball_counter = generate_hash_counter(self.yellow_ball.range)
-
-    analyze
+    self.white_ball_counter = generate_hash_counter(self.white_ball.range) if self.white_ball
+    self.yellow_ball_counter = generate_hash_counter(self.yellow_ball.range) if self.yellow_ball
   end
 
   def generate_hash_counter(range)
