@@ -160,11 +160,11 @@ class Lottery
     Math.sqrt(sum / (keys.size - 1))
   end
 
-  def find_candidates(counter, mean, standard_deviation, within_how_many_standard_deviations)
+  def find_candidates(counter, mean, standard_deviation, within_how_many)
     tmp_candidates = []
 
     counter.keys.each do |key|
-      if (counter[key].to_f - mean) < standard_deviation * within_how_many_standard_deviations
+      if counter[key].to_f >= (mean - standard_deviation * within_how_many)
         tmp_candidates << key
       end
     end
