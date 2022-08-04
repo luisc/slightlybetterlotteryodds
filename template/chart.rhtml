@@ -5,14 +5,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Slightly Better Lottery Odds</title>
+  <title>Slightly Better Lottery Odds :: %{title}</title>
   <meta name="description" content="Slightly Better Lottery Odds">
   <meta name="author" content="luisc">
 
-  <meta property="og:title" content="Slightly Better Lottery Odds">
+  <meta property="og:title" content="Slightly Better Lottery Odds %{title}">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.what.com/">
-  <meta property="og:description" content="Slightly Better Lottery Odds">
+  <meta property="og:description" content="Charts of %{title} Lottery Ball Winners">
   <meta property="og:image" content="image.png">
 
   <link rel="icon" href="/favicon.ico">
@@ -20,25 +20,26 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
   <!-- <link rel="stylesheet" href="css/styles.css?v=1.0"> -->
+  <style type="text/css">
+    hr {
+      margin: 10px 0;
+    }
+  </style>
 </head>
 
 <body>
 
   <div>
-    <canvas id="chart_whiteballs"></canvas>
+    <canvas id="chart_white_balls"></canvas>
   </div>
 
   <hr>
 
   <div>
-    <canvas id="chart_megaballs"></canvas>
+    <canvas id="chart_yellow_ball"></canvas>
   </div>
 
   <hr>
-
-  <div>
-    <canvas id="chart_multipliers"></canvas>
-  </div>
   
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
@@ -51,139 +52,97 @@
       color5: 'rgba(18, 78, 120, 0.5)'
     };
 
-    const labels_whiteballs = %{labels_whiteballs};
-    const data_whiteballs = %{data_whiteballs};
+    const labels_white_balls = %{labels_white_balls};
+    const data_white_balls = %{data_white_balls};
 
-    const labels_megaballs = %{labels_megaballs};
-    const data_megaballs = %{data_megaballs};
+    const labels_yellow_ball = %{labels_yellow_ball};
+    const data_yellow_ball = %{data_yellow_ball};
 
-    const labels_multipliers = %{labels_multipliers};
-    const data_multipliers = %{data_multipliers};
-
-    const whiteballs_data = {
-      labels: labels_whiteballs,
+    const white_balls_data = {
+      labels: labels_white_balls,
       datasets: [{
-        label: 'White Balls from 10/31/2017',
-        data: data_whiteballs,
+        label: '%{title} White Balls from %{start_date}',
+        data: data_white_balls,
         backgroundColor: [chartColors.color1],
         borderWidth: 1
       }]
     };
 
-    const config_whiteballs = {
+    const config_white_balls = {
       type: 'bar',
-      data: whiteballs_data,
+      data: white_balls_data,
       options: {
         scales: {
           y: {
             beginAtZero: true
           }
+        },
+        plugins: {
+          subtitle: {
+            display: true,
+            text: "Mean: %{white_ball_mean}, Standard Deviation: %{white_ball_standard_deviation}"
+          }
         }
       },
     };
 
-    const chart_whiteballs = new Chart(
-      document.getElementById('chart_whiteballs'),
-      config_whiteballs
+    const chart_white_balls = new Chart(
+      document.getElementById('chart_white_balls'),
+      config_white_balls
     );
 
-    var dataset = chart_whiteballs.data.datasets[0];
+    var dataset = chart_white_balls.data.datasets[0];
     for (var i = 0; i < dataset.data.length; i++) {
-      if (dataset.data[i] >= 25 && dataset.data[i] < 30) {
-        dataset.backgroundColor[i] = chartColors.color2;
-      } else if (dataset.data[i] >= 30 && dataset.data[i] < 35) {
+      if (dataset.data[i] >= (%{white_ball_mean} - %{white_ball_standard_deviation})) {
+        dataset.backgroundColor[i] = chartColors.color1;
+      } else {
         dataset.backgroundColor[i] = chartColors.color3;
-      } else if (dataset.data[i] >= 35 && dataset.data[i] < 40) {
-        dataset.backgroundColor[i] = chartColors.color4;
-      } else if (dataset.data[i] >= 45 && dataset.data[i] < 50) {
-        dataset.backgroundColor[i] = chartColors.color5;
       }
     }
-    chart_whiteballs.update();
+    chart_white_balls.update();
 
-
-    const megaballs_data = {
-      labels: labels_megaballs,
+    const yellow_ball_data = {
+      labels: labels_yellow_ball,
       datasets: [{
-        label: 'Mega Balls from 10/31/2017',
-        data: data_megaballs,
+        label: '%{title} Yellow Ball from %{start_date}',
+        data: data_yellow_ball,
         backgroundColor: [chartColors.color1],
         borderWidth: 1
       }]
     };
 
-    const config_megaballs = {
+    const config_yellow_ball = {
       type: 'bar',
-      data: megaballs_data,
+      data: yellow_ball_data,
       options: {
         scales: {
           y: {
             beginAtZero: true
           }
-        }
-      },
-    };
-
-    const chart_megaballs = new Chart(
-      document.getElementById('chart_megaballs'),
-      config_megaballs
-    );
-
-    dataset = chart_megaballs.data.datasets[0];
-    for (var i = 0; i < dataset.data.length; i++) {
-      if (dataset.data[i] >= 10 && dataset.data[i] < 15) {
-        dataset.backgroundColor[i] = chartColors.color2;
-      } else if (dataset.data[i] >= 15 && dataset.data[i] < 20) {
-        dataset.backgroundColor[i] = chartColors.color3;
-      } else if (dataset.data[i] >= 20 && dataset.data[i] < 25) {
-        dataset.backgroundColor[i] = chartColors.color4;
-      } else if (dataset.data[i] >= 25 && dataset.data[i] < 30) {
-        dataset.backgroundColor[i] = chartColors.color5;
-      }
-    }
-    chart_megaballs.update();
-
-
-    const multipliers_data = {
-      labels: labels_multipliers,
-      datasets: [{
-        label: 'Multipliers from 10/31/2017',
-        data: data_multipliers,
-        backgroundColor: [chartColors.color1],
-        borderWidth: 1
-      }]
-    };
-
-    const config_multipliers = {
-      type: 'bar',
-      data: multipliers_data,
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
+        },
+        plugins: {
+          subtitle: {
+            display: true,
+            text: "Mean: %{yellow_ball_mean}, Standard Deviation: %{yellow_ball_standard_deviation}"
           }
         }
       },
     };
 
-    const chart_multipliers = new Chart(
-      document.getElementById('chart_multipliers'),
-      config_multipliers
+    const chart_yellow_ball = new Chart(
+      document.getElementById('chart_yellow_ball'),
+      config_yellow_ball
     );
 
-    dataset = chart_multipliers.data.datasets[0];
+    dataset = chart_yellow_ball.data.datasets[0];
     for (var i = 0; i < dataset.data.length; i++) {
-      if (dataset.data[i] >= 0 && dataset.data[i] < 50) {
-        dataset.backgroundColor[i] = chartColors.color2;
-      } else if (dataset.data[i] >= 50 && dataset.data[i] < 150) {
-        dataset.backgroundColor[i] = chartColors.color3;
-      } else if (dataset.data[i] >= 150 && dataset.data[i] < 250) {
+      if (dataset.data[i] >= (%{yellow_ball_mean} - %{yellow_ball_standard_deviation})) {
+        dataset.backgroundColor[i] = chartColors.color1;
+      } else {
         dataset.backgroundColor[i] = chartColors.color4;
-      } else if (dataset.data[i] >= 250 && dataset.data[i] < 350) {
-        dataset.backgroundColor[i] = chartColors.color5;
       }
     }
-    chart_multipliers.update();
+    chart_yellow_ball.update();
   </script>
 
 </body>
