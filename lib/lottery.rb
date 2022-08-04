@@ -14,6 +14,11 @@ class Lottery
   attr_accessor :white_ball_counter
   attr_accessor :yellow_ball_counter
 
+  attr_accessor :white_ball_mean
+  attr_accessor :yellow_ball_mean
+  attr_accessor :white_ball_standard_deviation
+  attr_accessor :yellow_ball_standard_deviation
+
   attr_accessor :white_ball_candidates
   attr_accessor :yellow_ball_candidates
 
@@ -59,11 +64,11 @@ class Lottery
   def analyze(within_how_many_standard_deviations = 1)
     generate_histograms
 
-    white_ball_mean = calculate_mean(white_ball_counter)
-    white_ball_standard_deviation = calculate_standard_deviation(white_ball_counter, white_ball_mean)
+    self.white_ball_mean = calculate_mean(white_ball_counter)
+    self.white_ball_standard_deviation = calculate_standard_deviation(white_ball_counter, white_ball_mean)
 
-    yellow_ball_mean = calculate_mean(yellow_ball_counter)
-    yellow_ball_standard_deviation = calculate_standard_deviation(yellow_ball_counter, yellow_ball_mean)
+    self.yellow_ball_mean = calculate_mean(yellow_ball_counter)
+    self.yellow_ball_standard_deviation = calculate_standard_deviation(yellow_ball_counter, yellow_ball_mean)
     
     self.white_ball_candidates = find_candidates(white_ball_counter, white_ball_mean, white_ball_standard_deviation, within_how_many_standard_deviations)
     self.yellow_ball_candidates = find_candidates(yellow_ball_counter, yellow_ball_mean, yellow_ball_standard_deviation, within_how_many_standard_deviations)
