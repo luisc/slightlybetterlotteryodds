@@ -13,9 +13,9 @@ class Picker
     tmp_candidates = self.candidates.to_a
     
     quantity.times do
-      picked = Random.rand(tmp_candidates.size)
-      combination << tmp_candidates[picked]
-      tmp_candidates.delete(picked)
+      picked = tmp_candidates[ Random.rand(tmp_candidates.size) ]
+      combination << picked
+      tmp_candidates -= [picked]
     end
 
     combination
