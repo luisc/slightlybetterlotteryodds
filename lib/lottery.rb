@@ -78,6 +78,8 @@ class Lottery
       parse_mega_millions_data
     elsif self.title == "Powerball"
       parse_powerball_data
+    elsif self.title == "Yotta"
+      parse_yotta_data
     end
   end
 
@@ -109,6 +111,20 @@ class Lottery
 
         self.yellow_ball_counter[winning_numbers.last.to_i] += 1
         # multiplier_counter[ row['Multiplier'].to_i ] += 1 if row['Multiplier']
+      end
+    end
+  end
+
+  def parse_yotta_data
+    CSV.foreach(self.data_file, headers: true) do |row|
+      row_date = Date.parse(row['EndingDate'])
+      
+      if row_date >= start_date
+        6.times do |index|
+          self.white_ball_counter[ row["Number#{index + 1}"].to_i ] += 1
+        end
+        
+        self.yellow_ball_counter[ row['YottaBallNumber'].to_i ] += 1
       end
     end
   end
