@@ -9,7 +9,7 @@ def get_new_row
   l = Lottery.new
   new_row = []
 
-  puts "Enter the drawing date"
+  puts "Enter the drawing date m/d/yy"
   new_row << Date::strptime(gets.chomp, "%m/%d/%y")
 
   puts "Enter winning white ball numbers"
