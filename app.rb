@@ -21,6 +21,15 @@ powerball = Lottery.new(
 )
 powerball.analyze
 
+yotta = Lottery.new(
+  title: "Yotta",
+  white_ball: Ball.new(range: 1..70, quantity: 6),
+  yellow_ball: Ball.new(range: 1..63),
+  data_file: "data/yotta.csv",
+  start_date: "2020-09-27"
+)
+yotta.analyze
+
 puts "How many combinations for Powerball would you like?"
 quantity = gets.chomp.to_i
 
@@ -37,4 +46,13 @@ puts "Mega Millions"
 quantity.times do
   mega_millions.generate_combination
   puts mega_millions.selections_to_s
+end
+
+puts "How many combinations for Yotta would you like?"
+quantity = gets.chomp.to_i
+
+puts "Yotta"
+quantity.times do
+  yotta.generate_combination
+  puts yotta.selections_to_s
 end
