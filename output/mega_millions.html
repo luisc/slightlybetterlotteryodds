@@ -1,0 +1,151 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Slightly Better Lottery Odds :: Mega Millions</title>
+  <meta name="description" content="Slightly Better Lottery Odds">
+  <meta name="author" content="luisc">
+
+  <meta property="og:title" content="Slightly Better Lottery Odds Mega Millions">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.what.com/">
+  <meta property="og:description" content="Charts of Mega Millions Lottery Ball Winners">
+  <meta property="og:image" content="image.png">
+
+  <link rel="icon" href="/favicon.ico">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <!-- <link rel="stylesheet" href="css/styles.css?v=1.0"> -->
+  <style type="text/css">
+    hr {
+      margin: 10px 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div>
+    <canvas id="chart_white_balls"></canvas>
+  </div>
+
+  <hr>
+
+  <div>
+    <canvas id="chart_yellow_ball"></canvas>
+  </div>
+
+  <hr>
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <script>
+    const chartColors = {
+      color1: 'rgba(18, 78, 120, 0.5)',
+      color2: 'rgba(240, 240, 201, 0.5)',
+      color3: 'rgba(242, 187, 5, 0.5)',
+      color4: 'rgba(215, 78, 9, 0.5)',
+      color5: 'rgba(18, 78, 120, 0.5)'
+    };
+
+    const labels_white_balls = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70];
+    const data_white_balls = [34, 31, 42, 44, 26, 33, 44, 43, 32, 47, 43, 30, 32, 47, 39, 34, 48, 34, 34, 42, 29, 37, 27, 38, 38, 36, 37, 38, 35, 34, 47, 35, 33, 39, 25, 28, 35, 40, 34, 36, 32, 41, 42, 40, 28, 40, 31, 42, 25, 26, 21, 32, 40, 30, 25, 39, 35, 42, 36, 34, 34, 42, 32, 41, 27, 33, 28, 35, 29, 38];
+
+    const labels_yellow_ball = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
+    const data_yellow_ball = [18, 17, 16, 23, 17, 17, 13, 15, 23, 24, 26, 19, 21, 20, 20, 18, 22, 21, 21, 19, 16, 28, 15, 25, 22];
+
+    const white_balls_data = {
+      labels: labels_white_balls,
+      datasets: [{
+        label: 'Mega Millions White Balls from 2017-10-31',
+        data: data_white_balls,
+        backgroundColor: [chartColors.color1],
+        borderWidth: 1
+      }]
+    };
+
+    const config_white_balls = {
+      type: 'bar',
+      data: white_balls_data,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        },
+        plugins: {
+          subtitle: {
+            display: true,
+            text: "Mean: 35.43, Standard Deviation: 6.13"
+          }
+        }
+      },
+    };
+
+    const chart_white_balls = new Chart(
+      document.getElementById('chart_white_balls'),
+      config_white_balls
+    );
+
+    var dataset = chart_white_balls.data.datasets[0];
+    for (var i = 0; i < dataset.data.length; i++) {
+      if (dataset.data[i] >= (35.43 - 6.13)) {
+        dataset.backgroundColor[i] = chartColors.color1;
+      } else {
+        dataset.backgroundColor[i] = chartColors.color3;
+      }
+    }
+    chart_white_balls.update();
+
+    const yellow_ball_data = {
+      labels: labels_yellow_ball,
+      datasets: [{
+        label: 'Mega Millions Yellow Ball from 2017-10-31',
+        data: data_yellow_ball,
+        backgroundColor: [chartColors.color1],
+        borderWidth: 1
+      }]
+    };
+
+    const config_yellow_ball = {
+      type: 'bar',
+      data: yellow_ball_data,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        },
+        plugins: {
+          subtitle: {
+            display: true,
+            text: "Mean: 19.84, Standard Deviation: 3.75"
+          }
+        }
+      },
+    };
+
+    const chart_yellow_ball = new Chart(
+      document.getElementById('chart_yellow_ball'),
+      config_yellow_ball
+    );
+
+    dataset = chart_yellow_ball.data.datasets[0];
+    for (var i = 0; i < dataset.data.length; i++) {
+      if (dataset.data[i] >= (19.84 - 3.75)) {
+        dataset.backgroundColor[i] = chartColors.color1;
+      } else {
+        dataset.backgroundColor[i] = chartColors.color4;
+      }
+    }
+    chart_yellow_ball.update();
+  </script>
+
+</body>
+</html>
+
+
