@@ -10,6 +10,7 @@ mega_millions = Lottery.new(
   data_file: "data/mega-millions.csv",
   start_date: "2017-10-31"
 )
+mega_millions.analyze
 
 powerball = Lottery.new(
   title: "Powerball",
@@ -18,6 +19,7 @@ powerball = Lottery.new(
   data_file: "data/powerball.csv",
   start_date: "2015-10-07"
 )
+powerball.analyze
 
 puts "How many combinations for Powerball would you like?"
 quantity = gets.chomp.to_i
