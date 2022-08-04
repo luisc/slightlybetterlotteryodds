@@ -1,7 +1,7 @@
 # slightlybetterlotteryodds
 Incredibly Slightly Better Odds (Maybe) for picking lottery balls
 
-Your odds are basically impossible at winning Mega Millions but this might *slightly* increase your odds at winning as per this:
+Your odds are basically impossible at winning a giant lottery but this might *slightly* increase your odds at winning as per this:
 
 https://www.statisticshowto.com/odds-of-winning-the-lottery/
 
