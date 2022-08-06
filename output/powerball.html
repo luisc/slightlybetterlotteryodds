@@ -21,50 +21,86 @@
 
   <!-- <link rel="stylesheet" href="css/styles.css?v=1.0"> -->
   <style type="text/css">
+    @import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
     hr {
       margin: 10px 0;
     }
-    #menu {
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 1.2rem;
-      font-weight: bold;
-    }
 
-    #menu a:link, a:visited {
-      color: #666;
-      text-decoration: none;
-    }
-
-    #menu a:active, a:hover {
-      color: #ddd;
+    .combinations p {
+      text-align: center;
     }
   </style>
 </head>
 
 <body>
 
-  <header id="menu">
-    <a href="powerball.html">Powerball</a> |
-    <a href="mega_millions.html">Mega Millions</a> |
-    <a href="cash4life.html">Cash4Life</a> |
-    <a href="ny_lotto.html">NY Lotto</a> |
-    <a href="yotta.html">Yotta
+  <header>
+    <nav id="menu" class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item" href="powerball.html">Powerball</a>
+          <a class="navbar-item" href="mega_millions.html">Mega Millions</a>
+          <a class="navbar-item" href="cash4life.html">Cash4Life</a>
+          <a class="navbar-item" href="ny_lotto.html">NY Lotto</a>
+          <a class="navbar-item" href="yotta.html">Yotta</a>
+        </div>
+      </div>
+    </nav>
   </header>
 
-  <hr>
+  <section class="section">
+    <div class="columns">
+      <div class="column">
+        <h2 class="title">Powerball Generator</h2>
+        <form id="generatorForm">
+          <div class="field">
+            <label for="quantity" class="label">How Many?</label> 
+            <input type="number" name="quantity" id="quantity" class="input" placeholder="e.g. 5 (default)">
+          </div>
 
-  <div>
-    <canvas id="chart_white_balls"></canvas>
-  </div>
+          <div class="field">
+            <div class="control">
+              <div class="select">
+                <select name="standard_deviations" id="standardDeviations">
+                  <option value="0">Don't Exclude Any Numbers</option>
+                  <option value="1" selected>Exclude not within ONE Standard Deviation</option>
+                  <option value="2">Exclude not within TWO Standard Deviations</option>
+                  <option value="3">Exclude not within THREE Standard Deviations</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          
+          <div class="field">
+            <div class="control">
+              <button class="button is-primary">Generate</button>
+            </div>
+          </div>
+        </form>
+      </div>
 
-  <hr>
+      <div class="column">
+        <h3 class="title">Generated Combos</h3>
+        <div id="combinations" class="block">
+          <p>Future unlikely numbers here!</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <div>
-    <canvas id="chart_yellow_ball"></canvas>
-  </div>
+  <section class="section">
+    <h2 class="title">Histograms</h2>
+    <div>
+      <canvas id="chart_white_balls"></canvas>
+    </div>
 
-  <hr>
-  
+    <hr>
+
+    <div>
+      <canvas id="chart_yellow_ball"></canvas>
+    </div>
+  </section>
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
   <script>
@@ -72,7 +108,6 @@
       var dataset = chart.data.datasets[0];
       for (var i = 0; i < dataset.data.length; i++) {
         if (dataset.data[i] < (mean - standard_deviation)) {
-          console.log({d: dataset.data[i], mean: mean, standard_deviation: standard_deviation})
           dataset.backgroundColor[i] = colors.color3;
         } else {
           dataset.backgroundColor[i] = colors.color1;
@@ -91,9 +126,11 @@
 
     const labels_white_balls = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69];
     const data_white_balls = [80, 81, 92, 80, 81, 87, 74, 85, 74, 94, 80, 79, 74, 85, 80, 80, 87, 94, 79, 86, 104, 81, 88, 83, 77, 74, 62, 61, 50, 51, 48, 73, 57, 41, 42, 63, 60, 51, 66, 59, 58, 54, 47, 57, 54, 41, 56, 52, 46, 52, 47, 58, 62, 52, 50, 57, 56, 49, 64, 47, 74, 65, 71, 62, 51, 49, 54, 53, 67];
+    const white_ball_quantity = 5;
 
     const labels_yellow_ball = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26];
     const data_yellow_ball = [26, 27, 30, 35, 29, 31, 23, 30, 28, 32, 29, 23, 33, 28, 24, 25, 29, 39, 31, 25, 33, 26, 20, 43, 27, 32];
+    const yellow_ball_quantity = 1;
 
     const white_balls_data = {
       labels: labels_white_balls,
@@ -164,6 +201,85 @@
     );
 
     recolorChart(chart_yellow_ball, 29.15, 5.02, chartColors);
+  </script>
+
+  <script type="text/javascript">
+    function generateCombinations(event) {
+      var quantity = parseInt(document.getElementById('quantity').value);
+      var standardDeviations = parseInt(document.getElementById('standardDeviations').value);
+
+      var white_ball_candidates = filterCandidates(labels_white_balls, data_white_balls, 65.91, 15.48, standardDeviations);
+      var yellow_ball_candidates = filterCandidates(labels_yellow_ball, data_yellow_ball, 29.15, 5.02, standardDeviations)
+
+      if (isNaN(quantity)) {
+        quantity = 5;
+      }
+
+      var result, html = '';
+
+      combos.innerHTML = html;
+      
+
+      for (var ii = 0; ii < quantity; ii++) {
+        result = pick(white_ball_candidates, white_ball_quantity);
+        result = result.concat( pick(yellow_ball_candidates, yellow_ball_quantity) );
+
+        html += '<div class="columns combinations">';
+        for (var jj = 0; jj < result.length; jj++) {
+          html += '<div class="column"><p class="notification';
+          if (jj < result.length - 1) {
+            html += '<div class="column"><p class="notification is-primary">' + result[jj] + "</p></div>";
+          } else {
+            html += '<div class="column"><p class="notification is-info">' + result[jj] + "</p></div>";
+          }
+          
+        }
+        html += '</div>';
+        
+      }
+
+      console.log(html);
+      combos.innerHTML = html;
+      
+      event.preventDefault();
+    }
+
+    function filterCandidates(candidates, candidate_values, mean, standard_deviation, within) {
+
+      if (within == 0) {
+        return candidates;
+      }
+
+      var new_candidates = [];
+      var lower_bound_value = mean - standard_deviation * within;
+
+      for (var ii = 0; ii < candidate_values.length; ii++) {
+        if (candidate_values[ii] >= lower_bound_value) {
+          new_candidates.push(candidates[ii]);
+        }
+      }
+
+      return new_candidates;
+    }
+
+    function pick(candidates, quantity) {
+      var combination = [];
+      var tmp_candidates = candidates.slice();
+      var index_selected;
+
+      for (var ball = 1; ball <= quantity; ball++) {
+        index_selected = Math.floor(Math.random() * tmp_candidates.length);
+        combination.push(parseInt(tmp_candidates[index_selected]));
+        tmp_candidates.splice(index_selected, 1);
+      }
+
+      return combination.sort( function(a,b) { return a - b; });
+    }
+
+    const form = document.getElementById('generatorForm');
+    const combos = document.getElementById('combinations');
+    form.addEventListener('submit', generateCombinations);
+
   </script>
 
 </body>

@@ -8,9 +8,11 @@ def write_chart_file(output_file, lottery)
     title: lottery.title,
     start_date: lottery.start_date,
 
+    white_ball_quantity: lottery.white_ball.quantity,
     white_ball_mean: lottery.white_ball_mean.round(2),
     white_ball_standard_deviation: lottery.white_ball_standard_deviation.round(2),
 
+    yellow_ball_quantity: lottery.yellow_ball.quantity,
     yellow_ball_mean: lottery.yellow_ball_mean.round(2),
     yellow_ball_standard_deviation: lottery.yellow_ball_standard_deviation.round(2),
 
@@ -87,13 +89,13 @@ lotteries << setup_lottery(
   "2001-09-19"
 )
 
-lotteries.each do |lottery|
-  puts "How many combinations for #{lottery.title} would you like?"
-  quantity = gets.chomp.to_i
+# lotteries.each do |lottery|
+#   puts "How many combinations for #{lottery.title} would you like?"
+#   quantity = gets.chomp.to_i
 
-  puts lottery.title
-  quantity.times do
-    lottery.generate_combination
-    puts lottery.selections_to_s
-  end
-end
+#   puts lottery.title
+#   quantity.times do
+#     lottery.generate_combination
+#     puts lottery.selections_to_s
+#   end
+# end
