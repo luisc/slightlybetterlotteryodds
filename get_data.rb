@@ -7,21 +7,41 @@ data_path = "data"
 def write_lottery_file(src, output)
   # if you don't have curl, I dunno!
   puts "grabbing file...\n#{src}"
-  `curl -o #{output} #{src}`
+  `curl -o data/#{output} #{src}`
   puts "wrote: #{output}"
 end
 
-write_lottery_file(
-  "https://data.ny.gov/api/views/5xaw-6ayf/rows.csv?accessType=DOWNLOAD",
-  "#{data_path}/mega-millions.csv"
-)
+lotteries = [
+  {
+    title: "Mega Millions",
+    src: "https://data.ny.gov/api/views/5xaw-6ayf/rows.csv?accessType=DOWNLOAD",
+    output: "mega-millions.csv"
+  },
 
-write_lottery_file(
-  "https://data.ny.gov/api/views/dhwa-m6y4/rows.csv?accessType=DOWNLOAD&sorting=true",
-  "#{data_path}/powerball.csv"
-)
+  {
+    title: "Powerball",
+    src: "https://data.ny.gov/api/views/dhwa-m6y4/rows.csv?accessType=DOWNLOAD&sorting=true",
+    output: "powerball.csv"
+  },
 
-write_lottery_file(
-  "https://data.ny.gov/api/views/kwxv-fwze/rows.csv?accessType=DOWNLOAD&sorting=true",
-  "#{data_path}/cash4life.csv"
-)
+  {
+    title: "Cash4Life",
+    src: "https://data.ny.gov/api/views/kwxv-fwze/rows.csv?accessType=DOWNLOAD&sorting=true",
+    output: "cash4life.csv"
+  },
+
+  {
+    title: "NY Lotto",
+    src: "https://data.ny.gov/api/views/6nbc-h7bj/rows.csv?accessType=DOWNLOAD&sorting=true",
+    output: "ny_lotto.csv"
+  }
+]
+
+lotteries.each do |lottery|
+  puts lottery[:title]
+  write_lottery_file(lottery[:src], lottery[:output])
+  puts "Waiting a sec..."
+  sleep(1)
+end
+
+
