@@ -87,6 +87,8 @@ class Lottery
       parse_yotta_data
     elsif self.title == "Cash4Life"
       parse_cash4life_data
+    elsif self.title == "NY Lotto"
+      parse_ny_lotto_data
     end
   end
 
@@ -146,6 +148,20 @@ class Lottery
         end
 
         self.yellow_ball_counter[ row['Cash Ball'].to_i ] += 1
+      end
+    end
+  end
+
+  def parse_ny_lotto_data
+    CSV.foreach(self.data_file, headers: true) do |row|
+      row_date = Date::strptime(row['Draw Date'], "%m/%d/%Y")
+      
+      if row_date >= start_date
+        parse_winning_numbers(row['Winning Numbers']).each do |winning_number|
+          self.white_ball_counter[winning_number.to_i] += 1
+        end
+
+        self.yellow_ball_counter[ row['Bonus #'].to_i ] += 1
       end
     end
   end

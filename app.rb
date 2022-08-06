@@ -78,6 +78,15 @@ lotteries << setup_lottery(
   "2014-06-16"
 )
 
+lotteries << setup_lottery(
+  "NY Lotto",
+  { range: 1..59, quantity: 6 },
+  { range: 1..59 },
+  "ny_lotto.csv",
+  "ny_lotto.html",
+  "2001-09-19"
+)
+
 lotteries.each do |lottery|
   puts "How many combinations for #{lottery.title} would you like?"
   quantity = gets.chomp.to_i
@@ -88,21 +97,3 @@ lotteries.each do |lottery|
     puts lottery.selections_to_s
   end
 end
-
-# puts "How many combinations for Mega Millions would you like?"
-# quantity = gets.chomp.to_i
-
-# puts "Mega Millions"
-# quantity.times do
-#   mega_millions.generate_combination
-#   puts mega_millions.selections_to_s
-# end
-
-# puts "How many combinations for Yotta would you like?"
-# quantity = gets.chomp.to_i
-
-# puts "Yotta"
-# quantity.times do
-#   yotta.generate_combination
-#   puts yotta.selections_to_s
-# end
