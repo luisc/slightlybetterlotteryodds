@@ -43,13 +43,13 @@
 
 <body>
 
-  <div id="menu">
+  <header id="menu">
     <a href="powerball.html">Powerball</a> |
     <a href="mega_millions.html">Mega Millions</a> |
     <a href="cash4life.html">Cash4Life</a> |
     <a href="ny_lotto.html">NY Lotto</a> |
     <a href="yotta.html">Yotta
-  </div>
+  </header>
 
   <hr>
 
@@ -68,12 +68,25 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
   <script>
+    function recolorChart(chart, mean, standard_deviation, colors) {
+      var dataset = chart.data.datasets[0];
+      for (var i = 0; i < dataset.data.length; i++) {
+        if (dataset.data[i] < (mean - standard_deviation)) {
+          console.log({d: dataset.data[i], mean: mean, standard_deviation: standard_deviation})
+          dataset.backgroundColor[i] = colors.color3;
+        } else {
+          dataset.backgroundColor[i] = colors.color1;
+        }
+      }
+
+      chart.update();
+    }
+
     const chartColors = {
       color1: 'rgba(18, 78, 120, 0.5)',
-      color2: 'rgba(240, 240, 201, 0.5)',
-      color3: 'rgba(242, 187, 5, 0.5)',
-      color4: 'rgba(215, 78, 9, 0.5)',
-      color5: 'rgba(18, 78, 120, 0.5)'
+      color2: 'rgba(242, 187, 5, 0.5)',
+      color3: 'rgba(215, 78, 9, 0.5)',
+      color4: 'rgba(18, 78, 120, 0.5)'
     };
 
     const labels_white_balls = %{labels_white_balls};
@@ -115,15 +128,7 @@
       config_white_balls
     );
 
-    var dataset = chart_white_balls.data.datasets[0];
-    for (var i = 0; i < dataset.data.length; i++) {
-      if (dataset.data[i] >= (%{white_ball_mean} - %{white_ball_standard_deviation})) {
-        dataset.backgroundColor[i] = chartColors.color1;
-      } else {
-        dataset.backgroundColor[i] = chartColors.color3;
-      }
-    }
-    chart_white_balls.update();
+    recolorChart(chart_white_balls, %{white_ball_mean}, %{white_ball_standard_deviation}, chartColors);
 
     const yellow_ball_data = {
       labels: labels_yellow_ball,
@@ -158,15 +163,7 @@
       config_yellow_ball
     );
 
-    dataset = chart_yellow_ball.data.datasets[0];
-    for (var i = 0; i < dataset.data.length; i++) {
-      if (dataset.data[i] >= (%{yellow_ball_mean} - %{yellow_ball_standard_deviation})) {
-        dataset.backgroundColor[i] = chartColors.color1;
-      } else {
-        dataset.backgroundColor[i] = chartColors.color4;
-      }
-    }
-    chart_yellow_ball.update();
+    recolorChart(chart_yellow_ball, %{yellow_ball_mean}, %{yellow_ball_standard_deviation}, chartColors);
   </script>
 
 </body>
