@@ -22,6 +22,9 @@ OR
 
     $ ./add_data.rb
 
+## Then...
+Fire up your browser and load up any html file in output
+
 ## NY Lotto Note
 NY Lotto was pretty confusing to me since I have never played it and probably don't plan to. I had to read the description several times to make sense of it.
 
