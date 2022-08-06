@@ -20,3 +20,8 @@ write_lottery_file(
   "https://data.ny.gov/api/views/dhwa-m6y4/rows.csv?accessType=DOWNLOAD&sorting=true",
   "#{data_path}/powerball.csv"
 )
+
+write_lottery_file(
+  "https://data.ny.gov/api/views/kwxv-fwze/rows.csv?accessType=DOWNLOAD&sorting=true",
+  "#{data_path}/cash4life.csv"
+)
