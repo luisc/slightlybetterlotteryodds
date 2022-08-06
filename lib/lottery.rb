@@ -31,7 +31,7 @@ class Lottery
     self.white_ball = options[:white_ball]
     self.yellow_ball = options[:yellow_ball]
 
-    self.data_file = options[:data_file]
+    self.data_file = "data/#{options[:data_file]}"
     self.start_date = Date.parse(options[:start_date]) if options[:start_date]
 
     self.white_ball_counter = generate_hash_counter(self.white_ball.range) if self.white_ball
@@ -85,6 +85,8 @@ class Lottery
       parse_powerball_data
     elsif self.title == "Yotta"
       parse_yotta_data
+    elsif self.title == "Cash4Life"
+      parse_cash4life_data
     end
   end
 
@@ -130,6 +132,20 @@ class Lottery
         end
         
         self.yellow_ball_counter[ row['YottaBallNumber'].to_i ] += 1
+      end
+    end
+  end
+
+  def parse_cash4life_data
+    CSV.foreach(self.data_file, headers: true) do |row|
+      row_date = Date::strptime(row['Draw Date'], "%m/%d/%Y")
+      
+      if row_date >= start_date
+        parse_winning_numbers(row['Winning Numbers']).each do |winning_number|
+          self.white_ball_counter[winning_number.to_i] += 1
+        end
+
+        self.yellow_ball_counter[ row['Cash Ball'].to_i ] += 1
       end
     end
   end
