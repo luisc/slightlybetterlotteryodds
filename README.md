@@ -5,22 +5,21 @@ Your odds are basically impossible at winning a giant lottery but this might *sl
 
 https://www.statisticshowto.com/odds-of-winning-the-lottery/
 
-The scripts here will pick random numbers from the most frequently occurring balls for Mega Millions, Powerball, Cash4Life, NY Lotto (technically) and Yotta. This maybe changes your chances of winning from _less likely_ than getting hit by an asteroid to _maybe_ about as likely as getting hit by an asteroid (or not).
-
-* get_data.rb grabs the most recent lottery data in CSV format: Powerball, Megaball, Cash4Life and NY Lotto
-* add_data.rb accepts input for yotta data and appends to the yotta.csv file
-* app.rb loads up data, analyzes it and generates combinations by excluding data outside of 1 standard deviations (lower bound only)
+The combinations generated here will pick random numbers from the most frequently occurring balls for Mega Millions, Powerball, Cash4Life, NY Lotto (technically) and Yotta. This maybe changes your chances of winning from _less likely_ than getting hit by an asteroid to _maybe_ about as likely as getting hit by an asteroid (or not).
 
 ## Usage
     $ ./app.rb
+Analyzes data, generates charts and outputs html/javascript for generating combinations.
 
 OR
 
     $ ./get_data.rb
+Grabs the most recent lottery data in CSV format: Powerball, Megaball, Cash4Life and NY Lotto
 
 OR
 
     $ ./add_data.rb
+Accepts command line input for yotta data and appends to the yotta.csv file
 
 ## Then...
 Fire up your browser and load up any html file in output
