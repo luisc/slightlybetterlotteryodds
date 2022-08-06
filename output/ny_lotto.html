@@ -28,6 +28,7 @@
 
     .combinations p {
       text-align: center;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -49,7 +50,7 @@
   </header>
 
   <section class="section">
-    <div class="columns">
+    <div class="columns is-desktop">
       <div class="column">
         <h2 class="title">NY Lotto Generator</h2>
         <form id="generatorForm">
@@ -224,13 +225,12 @@
         result = pick(white_ball_candidates, white_ball_quantity);
         result = result.concat( pick(yellow_ball_candidates, yellow_ball_quantity) );
 
-        html += '<div class="columns combinations">';
+        html += '<div class="columns combinations is-mobile">';
         for (var jj = 0; jj < result.length; jj++) {
-          html += '<div class="column"><p class="notification';
           if (jj < result.length - 1) {
-            html += '<div class="column"><p class="notification is-primary">' + result[jj] + "</p></div>";
+            html += '<div class="column"><p class="has-background-primary has-text-white-ter">' + result[jj] + "</p></div>";
           } else {
-            html += '<div class="column"><p class="notification is-info">' + result[jj] + "</p></div>";
+            html += '<div class="column"><p class="has-background-info has-text-white-ter">' + result[jj] + "</p></div>";
           }
           
         }
