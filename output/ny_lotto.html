@@ -148,11 +148,11 @@
     };
 
     const labels_white_balls = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59];
-    const data_white_balls = [215, 222, 212, 224, 215, 197, 213, 254, 212, 221, 226, 214, 218, 209, 239, 236, 235, 210, 232, 224, 229, 212, 227, 215, 244, 210, 246, 218, 215, 236, 258, 205, 196, 213, 222, 226, 215, 207, 203, 224, 222, 216, 234, 229, 204, 209, 196, 210, 226, 242, 198, 229, 267, 235, 243, 206, 240, 206, 213];
+    const data_white_balls = [215, 222, 213, 224, 215, 197, 213, 254, 212, 221, 226, 214, 219, 209, 239, 237, 235, 210, 232, 224, 229, 212, 227, 215, 245, 210, 246, 218, 215, 236, 258, 206, 196, 213, 222, 226, 215, 207, 203, 224, 222, 217, 234, 229, 204, 209, 196, 210, 226, 242, 198, 229, 267, 235, 243, 206, 240, 206, 213];
     const white_ball_quantity = 6;
 
     const labels_yellow_ball = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59];
-    const data_yellow_ball = [41, 24, 52, 32, 33, 33, 39, 34, 40, 36, 32, 30, 35, 49, 41, 36, 39, 32, 27, 43, 37, 41, 35, 31, 44, 49, 40, 28, 35, 39, 30, 37, 36, 28, 37, 41, 41, 31, 46, 32, 24, 47, 36, 31, 41, 44, 39, 35, 36, 37, 55, 47, 36, 26, 23, 42, 42, 33, 39];
+    const data_yellow_ball = [41, 24, 52, 32, 33, 33, 39, 34, 40, 36, 32, 30, 35, 49, 41, 36, 39, 32, 27, 43, 37, 41, 35, 31, 44, 49, 40, 28, 35, 39, 30, 37, 36, 28, 37, 41, 41, 31, 46, 32, 24, 47, 36, 31, 41, 45, 39, 35, 36, 37, 55, 47, 36, 26, 23, 42, 42, 33, 39];
     const yellow_ball_quantity = 1;
 
     const white_balls_data = {
@@ -177,7 +177,7 @@
         plugins: {
           subtitle: {
             display: true,
-            text: "Mean: 221.59, Standard Deviation: 15.54"
+            text: "Mean: 221.69, Standard Deviation: 15.55"
           }
         }
       },
@@ -188,7 +188,7 @@
       config_white_balls
     );
 
-    recolorChart(chart_white_balls, 221.59, 15.54, chartColors);
+    recolorChart(chart_white_balls, 221.69, 15.55, chartColors);
 
     const yellow_ball_data = {
       labels: labels_yellow_ball,
@@ -212,7 +212,7 @@
         plugins: {
           subtitle: {
             display: true,
-            text: "Mean: 36.93, Standard Deviation: 6.87"
+            text: "Mean: 36.95, Standard Deviation: 6.89"
           }
         }
       },
@@ -223,7 +223,7 @@
       config_yellow_ball
     );
 
-    recolorChart(chart_yellow_ball, 36.93, 6.87, chartColors);
+    recolorChart(chart_yellow_ball, 36.95, 6.89, chartColors);
   </script>
 
   <script type="text/javascript">
@@ -231,8 +231,8 @@
       var quantity = parseInt(document.getElementById('quantity').value);
       var standardDeviations = parseInt(document.getElementById('standardDeviations').value);
 
-      var white_ball_candidates = filterCandidates(labels_white_balls, data_white_balls, 221.59, 15.54, standardDeviations);
-      var yellow_ball_candidates = filterCandidates(labels_yellow_ball, data_yellow_ball, 36.93, 6.87, standardDeviations)
+      var white_ball_candidates = filterCandidates(labels_white_balls, data_white_balls, 221.69, 15.55, standardDeviations);
+      var yellow_ball_candidates = filterCandidates(labels_yellow_ball, data_yellow_ball, 36.95, 6.89, standardDeviations)
 
       if (event.submitter.id == "yotta_guaranteed") {
         quantity = 63;
