@@ -11,7 +11,7 @@
 
   <meta property="og:title" content="Slightly Better Lottery Odds Mega Millions">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.what.com/">
+  <meta property="og:url" conßtent="https://www.what.com/">
   <meta property="og:description" content="Charts of Mega Millions Lottery Ball Winners">
   <meta property="og:image" content="image.png">
 
@@ -40,6 +40,7 @@
       display: none;
     }
   </style>
+  <script src="https://randojs.com/2.0.0.js"></script>
 </head>
 
 <body>
@@ -293,7 +294,7 @@
       var index_selected;
 
       for (var ball = 1; ball <= quantity; ball++) {
-        index_selected = Math.floor(Math.random() * tmp_candidates.length);
+        index_selected = rando(tmp_candidates.length - 1);
         combination.push(parseInt(tmp_candidates[index_selected]));
         tmp_candidates.splice(index_selected, 1);
       }
