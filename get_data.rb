@@ -20,7 +20,7 @@ lotteries = [
 
   {
     title: "Powerball",
-    src: "https://data.ny.gov/api/views/dhwa-m6y4/rows.csv?accessType=DOWNLOAD&sorting=true",
+    src: "https://data.ny.gov/api/views/d6yy-54nr/rows.csv?accessType=DOWNLOAD&sorting=true",
     output: "powerball.csv"
   },
 
